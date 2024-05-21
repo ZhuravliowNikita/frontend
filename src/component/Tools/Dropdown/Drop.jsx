@@ -4,7 +4,11 @@ import { Dropdown } from 'semantic-ui-react'
 
 
 const DropList = (props) => (
-  <Dropdown placeholder='Skills' fluid multiple selection options={props.options} />
+  <div className="flex flex-col text-[#484444]  text-[24px]">
+    <div className=''>{props.label}</div>
+    <Dropdown fluid selection options={props.options} />
+  </div>
+  
 )
 
 export default DropList;

@@ -1,55 +1,48 @@
-import DropList from "../Tools/Dropdown/Drop";
-import JobForm from "./JobForm/JobForm";
 import "./Main.css"
-import { Input } from 'semantic-ui-react'
-const options = [
-    { key: 'angular', text: 'Angular', value: 'angular' },
-    { key: 'css', text: 'CSS', value: 'css' },
-    { key: 'design', text: 'Graphic Design', value: 'design' },
-    { key: 'ember', text: 'Ember', value: 'ember' },
-    { key: 'html', text: 'HTML', value: 'html' },
-    { key: 'ia', text: 'Information Architecture', value: 'ia' },
-    { key: 'javascript', text: 'Javascript', value: 'javascript' },
-    { key: 'mech', text: 'Mechanical Engineering', value: 'mech' },
-    { key: 'meteor', text: 'Meteor', value: 'meteor' },
-    { key: 'node', text: 'NodeJS', value: 'node' },
-    { key: 'plumbing', text: 'Plumbing', value: 'plumbing' },
-    { key: 'python', text: 'Python', value: 'python' },
-    { key: 'rails', text: 'Rails', value: 'rails' },
-    { key: 'react', text: 'React', value: 'react' },
-    { key: 'repair', text: 'Kitchen Repair', value: 'repair' },
-    { key: 'ruby', text: 'Ruby', value: 'ruby' },
-    { key: 'ui', text: 'UI Design', value: 'ui' },
-    { key: 'ux', text: 'User Experience', value: 'ux' },
-]
+import { Button, Input } from 'semantic-ui-react'
+
+import Category from "./Category/Category";
+import JobForms from "./JobForms/JobForms";
+import DevelopersInfo from "./DevelopersInfo/DevelopersInfo";
+import { selectIsCustomerMode } from "ReduxSlices/slices/Main";
+import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { fetchCategories } from "ReduxSlices/slices/Main";
+import { Link } from "react-router-dom";
 
 function Main() {
+
+    const isCustomerMode = useSelector(selectIsCustomerMode);
+    const categories = useSelector(state => state.main.categories)
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        dispatch(fetchCategories());
+    }, [dispatch])
+
     return (
-        <div className="h-full w-full m-auto">
-            <div className=" flex flex-row h-full w-full items-center justify-self-center mt-auto">
-                <div className=" flex flex-col h-full basis-1/3 bg-zinc-200 p-4">
-                    <Input icon={{ name: 'search', circular: true, link: true }}
-                        placeholder='Search...' />
-                    <DropList options={options} />
-                </div>
+        <div className="flex-auto bg-[#D3D7E4]/[0.2] mx-[5rem] mt-[3rem] max-h-[70rem] rounded-lg flex flex-row ">
 
-                <div className=" basis-2/3 flex flex-col space-y-2 h-full p-6 ">
-                    <JobForm />
-                    <JobForm />
-                    <JobForm />
-                    <JobForm />
-                    <JobForm />
-                    <JobForm />
-                    <JobForm />
-                    <JobForm />
-                    <JobForm />
-                    <JobForm />
-                    <JobForm />
-                    <JobForm />
-
-
+            <div className="flex flex-col w-fit m-4 px-4 items-center overflow-auto">
+                <Link to = "/form">
+                    <button className="bg-[#5BB0FF] text-white px-4 py-4 w-full rounded-sm text-[1.5rem] sticky top-0 hover:bg-white hover:text-[#2D2D2D] ">Додати замовлення</button>
+                </Link>
+                <div className=" w-fit flex flex-col space-y-4 my-4 items-center">
+                    <div className="text-white text-nowrap text-[1.5rem]">Все заказы/фрилансеры</div>
+                    {categories &&
+                        categories.map(category => {
+                            return <Category Name={category.Name} />
+                        })
+                    }
                 </div>
             </div>
+
+            {isCustomerMode ?
+                <JobForms />
+                :
+                <DevelopersInfo />
+            }
+
         </div>
 
 

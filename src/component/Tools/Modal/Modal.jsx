@@ -16,7 +16,7 @@ function MyModal(props) {
         <Modal
             closeIcon
             open={open}
-            trigger={<Button>{props.buttonTitle}</Button>}
+            trigger={<Button color='blue'>{props.buttonTitle}</Button>}
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
         >
@@ -24,14 +24,6 @@ function MyModal(props) {
             <ModalContent>
                 {props.content}
             </ModalContent>
-            <ModalActions>
-                <Button color='red' inverted onClick={() => setOpen(false)}>
-                    <Icon name='remove' /> No
-                </Button>
-                <Button color='green' inverted onClick={() => setOpen(false)}>
-                    <Icon name='checkmark' /> Yes
-                </Button>
-            </ModalActions>
         </Modal>
     )
 }
