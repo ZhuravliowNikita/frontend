@@ -25,7 +25,7 @@ function Main() {
 
             <div className="flex flex-col w-fit m-4 px-4 items-center overflow-auto">
                 <Link to = "/form">
-                    <button className="bg-[#5BB0FF] text-white px-4 py-4 w-full rounded-sm text-[1.5rem] sticky top-0 hover:bg-white hover:text-[#2D2D2D] ">Додати замовлення</button>
+                    <button className="bg-[#5BB0FF] text-white px-4 py-4 w-full rounded-xl text-[1.5rem] sticky top-0 hover:bg-white hover:text-[#2D2D2D] ">Додати замовлення</button>
                 </Link>
                 <div className=" w-fit flex flex-col space-y-4 my-4 items-center">
                     <div className="text-white text-nowrap text-[1.5rem]">Все заказы/фрилансеры</div>

@@ -1,6 +1,6 @@
 import MyModal from "../Tools/Modal/Modal";
 import React from 'react'
-import { MenuItem, Menu, Icon, Input, Button } from 'semantic-ui-react'
+import { MenuItem, Menu, Icon, Input, Button, Checkbox } from 'semantic-ui-react'
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { fetchAuth, fetchRegister } from "ReduxSlices/slices/Auth";
@@ -14,8 +14,8 @@ function LoginContent() {
         formState: { errors, isValid },
     } = useForm({
         defaultValues: {
-            email: "test@test.com",
-            password: "12345",
+            email: "",
+            password: "",
         },
         mode: "onChange",
     });
@@ -50,6 +50,7 @@ function LoginContent() {
 }
 
 function SignUpContent() {
+    const [DeveloperCheck, setDeveloperCheck] = React.useState(false);
     const dispatch = useDispatch();
     const {
         register,
@@ -58,38 +59,63 @@ function SignUpContent() {
         formState: { errors, isValid },
     } = useForm({
         defaultValues: {
-            email: "test@test.com",
-            password: "12345",
-            fullName: "Debil",
+            fullName: "",
+            email: "",
+            password: "",
+            Developer: false,
+            Birthday: "",
+            pricePerHour: "",
         },
         mode: "onChange",
     });
 
+
     const OnSubmit = async (params) => {
+        console.log(params)
         dispatch(fetchRegister(params));
     };
     return (
         <>
             <form onSubmit={handleSubmit(OnSubmit)} className="flex flex-col space-y-4">
+                <label>Name</label>
+                <Input iconPosition='left' placeholder='Name' type="text">
+                    <Icon name='user' />
+                    <input {...register("fullName", { required: "FullName is required." })} />
+                </Input>
+                <br />
                 <label>Email</label>
-                
                 <Input iconPosition='left' placeholder='you@example.com' type="email">
                     <Icon name='at' />
                     <input {...register("email", { required: "Email is required." })} />
                 </Input>
                 <br />
                 <label>Password</label>
-                
                 <Input iconPosition='left' placeholder='************' type="password">
                     <Icon name='key' />
                     <input {...register("password", { required: "Password is required." })} />
                 </Input>
                 <br />
-                <label>Name</label>
-                <Input iconPosition='left' placeholder='Name' type="text">
-                    <Icon name='user' />
-                    <input {...register("fullName", { required: "FullName is required." })} />
+                <label>Birthday</label>
+                <Input iconPosition='left' placeholder='Name' type="date">
+                    <Icon name="calendar alternate" />
+                    <input {...register("Birthday", { required: "Birthday is required." })} />
                 </Input>
+                <br />
+                <div className="flex flex-col space-y-4 items-start">
+                    <label>Are you developer?</label>
+
+                    <input type="checkbox" className="align-start" {...register("Developer", { onChange: (e) => setDeveloperCheck(e.target.checked) })} />
+                </div>
+                <br />
+                {DeveloperCheck &&
+                    <>
+                        <label>Price per hour</label>
+                        <Input iconPosition='left' type="number">
+                            <Icon name='dollar' />
+                            <input {...register("pricePerHour", { required: "Price per hour is required." })} />
+                        </Input>
+                    </>
+                }
                 <Button className=" w-1/2" color='blue'>
                     Sign In
                 </Button>

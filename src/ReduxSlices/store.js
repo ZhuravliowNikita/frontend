@@ -6,7 +6,7 @@ import {mainReducer} from "ReduxSlices/slices/Main"
 
 const store = configureStore({
     reducer: { 
-        auth: authReducer,
+        user: authReducer,
         main: mainReducer,
     },
 });

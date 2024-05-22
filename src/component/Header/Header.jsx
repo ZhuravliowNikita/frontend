@@ -1,5 +1,3 @@
-import MyModal from "../Tools/Modal/Modal";
-import ModalExampleCloseIcon from "../Tools/Modal/Modal";
 import "./Header.css"
 import Login from "./Login";
 import React from 'react'
@@ -21,9 +19,9 @@ function Header() {
                 <div className=" basis-2/3 flex flex-row space-x-9">
                     <Link to='/'><div className=" h-120 ml-12 text-white text-[36px] font-normal "><b>Sphere of Labor</b></div></Link>
                     <div className="flex flex-row items-center space-x-5 mt-2 ">
-                        <button onClick={() => dispatch(changeToCustomer())} className={"w-full  rounded-md px-3 text-[24px] text-white font-thin text-center align-middle " + (isCustomerMode && "bg-[#587CDA]")}>Замовники</button>
+                    <Link to='/'><button onClick={() => dispatch(changeToCustomer())} className={"w-full  rounded-md px-3 text-[24px] text-white font-thin text-center align-middle " + (isCustomerMode && "bg-[#587CDA]")}>Замовники</button></Link>
                         <div className="text-white  text-[2rem] font-thin h-full text-center align-middle">|</div>
-                        <button onClick={() => dispatch(changeToDeveloper())} className={"w-full rounded-md px-3 text-white text-[24px] font-thin text-center align-middle " + (!(isCustomerMode) && "bg-[#587CDA]")}>Фрiлансери</button>
+                        <Link to='/'> <button onClick={() => dispatch(changeToDeveloper())} className={"w-full rounded-md px-3 text-white text-[24px] font-thin text-center align-middle " + (!(isCustomerMode) && "bg-[#587CDA]")}>Фрiлансери</button></Link>
                     </div>
                 </div>
                 <div className=" basis-1/3 text-right mr-64 ">
