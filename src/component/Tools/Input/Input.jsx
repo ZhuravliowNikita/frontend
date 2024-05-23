@@ -7,7 +7,7 @@ function Input(props) {
 
         <div className="flex flex-col text-[24px] text-[#484444] ">
             {props.label}
-            <input className=" p-[15px] rounded-md" />
+            <input {...props.register} type={props.type || "string"} className=" p-[15px] rounded-md" />
         </div>
 
 

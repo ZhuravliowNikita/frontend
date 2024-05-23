@@ -9,9 +9,19 @@ export const fetchCategories = createAsyncThunk("main/fetchCategories", async() 
     return data;
 })
 
+export const fetchTasks = createAsyncThunk("main/fetchTasks", async(page) =>{
+    const {data} = await axios.get("tasks/"+page).catch(function (error) {
+        console.log(error.toJSON());
+      });
+    return data;
+})
+
+
 
 const initialState = {
     categories: null,
+    tasks: null,
+    currentPage: 1,
     isCustomerMode: true,
     loading: false,
     error: null,
@@ -39,6 +49,20 @@ const mainSlice = createSlice({
             state.loading = false;
         });
         builder.addCase(fetchCategories.rejected, (state, action) =>{
+            state.error = action.payload;
+            state.loading = false;
+        });
+
+        builder.addCase(fetchTasks.pending, (state) =>{
+            state.tasks = null;
+            state.error = null;
+            state.loading = true;
+        });
+        builder.addCase(fetchTasks.fulfilled, (state, action) =>{
+            state.tasks = action.payload;
+            state.loading = false;
+        });
+        builder.addCase(fetchTasks.rejected, (state, action) =>{
             state.error = action.payload;
             state.loading = false;
         });

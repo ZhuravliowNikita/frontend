@@ -7,7 +7,7 @@ function TextArea(props) {
 
         <div className="flex flex-col text-[24px] text-[#484444] ">
             {props.label}
-            <textarea style={{resize:"none"}} maxLength={1500} className=" p-[15px] text-[16px] rounded-md" />
+            <textarea {...props.register} style={{resize:"none"}} maxLength={15000} className=" h-[22rem] p-[15px] text-[16px] rounded-md" />
         </div>
 
 
