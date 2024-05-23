@@ -6,6 +6,7 @@ function JobForm(props) {
     const Name = props.Name
     const Skills = props.Skills
     const Fullname = props.Fullname
+    const pricePerHour = props.pricePerHour
 
     return (
         <div className="flex-initial w-full bg-white h-fit rounded-lg flex flex-col p-2 space-y-4 text-[#464343]">

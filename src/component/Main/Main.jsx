@@ -7,7 +7,7 @@ import DevelopersInfo from "./DevelopersInfo/DevelopersInfo";
 import { selectIsCustomerMode } from "ReduxSlices/slices/Main";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
-import { fetchCategories, fetchTasks } from "ReduxSlices/slices/Main";
+import { fetchCategories, fetchTasks, fetchDevelopers } from "ReduxSlices/slices/Main";
 import { Link } from "react-router-dom";
 
 function Main() {
@@ -15,11 +15,15 @@ function Main() {
     const isCustomerMode = useSelector(selectIsCustomerMode);
     const categories = useSelector(state => state.main.categories)
     const tasks = useSelector(state => state.main.tasks)
+    const currentPageTask = useSelector(state => state.main.currentPageTask)
+    const developers = useSelector(state => state.main.developers)
+    const currentPageDevs = useSelector(state => state.main.currentPageDevs)
     const dispatch = useDispatch();
 
     React.useEffect(() => {
         dispatch(fetchCategories());
-        dispatch(fetchTasks());
+        dispatch(fetchTasks(currentPageTask));
+        dispatch(fetchDevelopers(currentPageDevs));
     }, [dispatch])
 
     return (
@@ -42,7 +46,7 @@ function Main() {
             {isCustomerMode ?
                 <JobForms tasks={tasks} />
                 :
-                <DevelopersInfo />
+                <DevelopersInfo developers={developers} />
             }
 
         </div>

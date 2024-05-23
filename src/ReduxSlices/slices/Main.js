@@ -16,12 +16,20 @@ export const fetchTasks = createAsyncThunk("main/fetchTasks", async(page) =>{
     return data;
 })
 
+export const fetchDevelopers = createAsyncThunk("main/fetchDevelopers", async(page) =>{
+    const {data} = await axios.get("developers/"+page).catch(function (error) {
+        console.log(error.toJSON());
+      });
+    return data;
+})
 
 
 const initialState = {
     categories: null,
     tasks: null,
-    currentPage: 1,
+    developers: null,
+    currentPageTask: 1,
+    currentPageDevs: 1,
     isCustomerMode: true,
     loading: false,
     error: null,
@@ -63,6 +71,20 @@ const mainSlice = createSlice({
             state.loading = false;
         });
         builder.addCase(fetchTasks.rejected, (state, action) =>{
+            state.error = action.payload;
+            state.loading = false;
+        });
+        
+        builder.addCase(fetchDevelopers.pending, (state) =>{
+            state.developers = null;
+            state.error = null;
+            state.loading = true;
+        });
+        builder.addCase(fetchDevelopers.fulfilled, (state, action) =>{
+            state.developers = action.payload;
+            state.loading = false;
+        });
+        builder.addCase(fetchDevelopers.rejected, (state, action) =>{
             state.error = action.payload;
             state.loading = false;
         });

@@ -50,7 +50,7 @@ function Profile() {
                             active={currentMenu === menuItems.Education}
                             onClick={() => dispatch(changeProfileMenuItem(menuItems.Education))}
                         >
-                            Освыыыыыыта
+                            Освіта
                         </MenuItem>
 
                         <MenuItem
@@ -58,7 +58,7 @@ function Profile() {
                             active={currentMenu === menuItems.Projects}
                             onClick={() => dispatch(changeProfileMenuItem(menuItems.Projects))}
                         >
-                            ПроЕкти
+                            Проекти
                         </MenuItem>
 
                         <MenuItem
@@ -71,8 +71,8 @@ function Profile() {
                     </Menu>
                 </div>
                 <div className="w-full bg-[white] rounded-md p-4">
-                    {currentMenu === menuItems.Tasks && "Maxim zadanation"}
-                    {currentMenu === menuItems.Education && "Lukutin obrosovation"}
+                    {currentMenu === menuItems.Tasks && "-"}
+                    {currentMenu === menuItems.Education && "-"}
                 </div>
 
                 {/* Tasks[]
