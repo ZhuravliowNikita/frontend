@@ -9,8 +9,9 @@ export const fetchCategories = createAsyncThunk("main/fetchCategories", async() 
     return data;
 })
 
-export const fetchTasks = createAsyncThunk("main/fetchTasks", async(page) =>{
-    const {data} = await axios.get("tasks/"+page).catch(function (error) {
+export const fetchTasks = createAsyncThunk("main/fetchTasks", async(params) =>{
+    const {page, ...externalParams} = params
+    const {data} = await axios.post("tasks/"+page, externalParams).catch(function (error) {
         console.log(error.toJSON());
       });
     return data;
@@ -24,7 +25,10 @@ export const fetchDevelopers = createAsyncThunk("main/fetchDevelopers", async(pa
 })
 
 
+
+
 const initialState = {
+    currentCategory: null,
     categories: null,
     tasks: null,
     developers: null,
@@ -44,10 +48,24 @@ const mainSlice = createSlice({
         },
         changeToDeveloper: (state) =>{
             state.isCustomerMode = false;
+        },
+        moreTask: (state) =>{
+            state.currentPageTask += 1
+        },
+        moreDevs: (state) =>{
+            state.currentPageDevs += 1
+        },
+        resetPages: (state) =>{
+            state.currentPageTask = initialState.currentPageTask
+            state.currentPageDevs = initialState.currentPageDevs
+        },
+        setCategory: (state, action) =>{
+            state.currentCategory = action.payload;
         }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchCategories.pending, (state) =>{
+            state.skills = null;
             state.categories = null;
             state.error = null;
             state.loading = true;
@@ -95,5 +113,5 @@ export const selectIsCustomerMode = state => state.main.isCustomerMode;
 
 export const mainReducer = mainSlice.reducer;
 
-export const {changeToCustomer, changeToDeveloper} = mainSlice.actions;
+export const {changeToCustomer, changeToDeveloper, moreTask, moreDevs, resetPages, setCategory} = mainSlice.actions;
 
