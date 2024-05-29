@@ -22,7 +22,6 @@ function FormEdit() {
     const currentSkills = useSelector(state => state.task.currentSkills)
 
 
-
     const {
         register,
         handleSubmit,
@@ -32,7 +31,8 @@ function FormEdit() {
         defaultValues: {
             Title: currentForm.Title,
             Description: currentForm.Description,
-            PricePerHour: currentForm.pricePerHour
+            PricePerHour: currentForm.pricePerHour,
+            Deadline: new Date(currentForm.Deadline).toLocaleDateString("en-US")
         },
         mode: "onChange",
     });
@@ -65,6 +65,7 @@ function FormEdit() {
                             <TextArea register={register("Description")} label="Опис" />
 
                             <Input register={register("PricePerHour")} type="number" label="Цiна" />
+                            <Input register={register("Deadline", { valueAsDate: true, onChange: (event) => console.log(event)})} type="date" label="Виконати до" />
                         </div>
                     </div>
                     <div className=" flex flex-row justify-end items-end w-full h-full p-4">

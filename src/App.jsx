@@ -7,12 +7,14 @@ import Profile from "component/Profile/Profile"
 import React from "react";
 import { useDispatch } from 'react-redux';
 import { fetchAuthMe } from 'ReduxSlices/slices/Auth';
+import { fetchContactType } from "ReduxSlices/slices/Profile"
 
 
 function App() {
     const dispatch = useDispatch();
     React.useEffect(() => {
         dispatch(fetchAuthMe());
+        dispatch(fetchContactType());
     }, [dispatch]);
 
     return (

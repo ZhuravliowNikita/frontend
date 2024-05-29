@@ -43,12 +43,27 @@ export const fetchCategories = createAsyncThunk("task/fetchCategories", async() 
     return data;
 })
 
+export const applyTask = createAsyncThunk("task/applyTask", async(params) =>{
+    const {data} = await axios.post("taskdev/", params).catch(function (error) {
+        console.log(error.toJSON());
+      });
+    return data;
+})
+
+export const assignTask = createAsyncThunk("task/assignTask", async(params) =>{
+    const {data} = await axios.patch("taskassigndev/"+params._id, params).catch(function (error) {
+        console.log(error.toJSON());
+      });
+    return data;
+})
+
 
 const initialState = {
     currentCategory: null,
     currentSkills: null,
     currentState: "create",
     skills: null,
+    categories: null,
     states: {
         create: "create",
         edit: "edit",
@@ -121,6 +136,7 @@ export const taskSlice = createSlice({
             state.loading = true;
         });
         builder.addCase(fetchTask.fulfilled, (state, action) => {
+            console.log(action.payload)
             state.currentForm = action.payload;
             state.currentCategory = state.currentForm.Category._id
             state.currentSkills = state.currentForm.Skills.map(taskSkill => { return taskSkill.Skill._id })
@@ -154,6 +170,30 @@ export const taskSlice = createSlice({
             state.loading = false;
         });
         builder.addCase(deleteTask.rejected, (state, action) => {
+            state.error = action.payload;
+            state.loading = false;
+        });
+        builder.addCase(applyTask.pending, (state) => {
+            state.error = null;
+            state.loading = true;
+        });
+        builder.addCase(applyTask.fulfilled, (state, action) => {
+            state.currentForm = action.payload;
+            state.loading = false;
+        });
+        builder.addCase(applyTask.rejected, (state, action) => {
+            state.error = action.payload;
+            state.loading = false;
+        });
+        builder.addCase(assignTask.pending, (state) => {
+            state.error = null;
+            state.loading = true;
+        });
+        builder.addCase(assignTask.fulfilled, (state, action) => {
+            state.currentForm = action.payload;
+            state.loading = false;
+        });
+        builder.addCase(assignTask.rejected, (state, action) => {
             state.error = action.payload;
             state.loading = false;
         });

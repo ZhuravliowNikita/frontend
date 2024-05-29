@@ -39,7 +39,7 @@ function Form() {
 
     return (
         <>
-            {task.loading
+            {task.loading && task.categories
                 ?
                 <div className=" flex-auto bg-[#D3D7E4]/[0.7] mx-[5rem] mt-[3rem] max-h-[50rem] rounded-lg flex flex-col overflow-clip"><Loader>Loading</Loader></div>
                 :
