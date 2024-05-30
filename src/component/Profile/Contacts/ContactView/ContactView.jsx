@@ -16,7 +16,7 @@ function ContactView(props) {
 
             <div className=" grow flex flex-row items-center space-x-2">{props.Type}</div>
             <div className="grow">{props.Value}</div>
-            <div><button onClick={props.onDeclineClick} className=" bg-[#d35047] text-white p-2 w-fit rounded-lg">Оливчик типа редактирование.mp4 ✎ (не робит)</button></div>
+            <div><button onClick={props.onDeclineClick} className=" bg-[#d35047] text-white px-2 w-fit rounded-lg">✎</button></div>
 
         </div>
 

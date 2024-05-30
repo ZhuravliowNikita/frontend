@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import TextArea from "component/Tools/Textarea/TextArea";
 import { useForm } from "react-hook-form";
-import { createTask } from "ReduxSlices/slices/Task";
+import { createTask, fetchDevelopersRecomendation } from "ReduxSlices/slices/Task";
 import FormCreate from "./FormCreate/FormCreate";
 import FormView from "./FormView/FormView";
 import FormEdit from "./FormEdit/FormEdit"
@@ -20,7 +20,8 @@ function Form() {
     React.useEffect(() => {
         dispatch(fetchCategories());
         dispatch(fetchSkillsByCategory(currentCategory))
-    }, [currentCategory])
+        dispatch(fetchDevelopersRecomendation(task?.currentForm?._id))
+    }, [currentCategory, task?.currentForm?._id])
 
     const switchRender = (state) => {
         

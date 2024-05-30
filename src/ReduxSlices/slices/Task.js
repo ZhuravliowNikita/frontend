@@ -57,8 +57,24 @@ export const assignTask = createAsyncThunk("task/assignTask", async(params) =>{
     return data;
 })
 
+export const estimateTask = createAsyncThunk("task/estimateTask", async(params) =>{
+    const {data} = await axios.patch("taskestimate/"+params._id, params).catch(function (error) {
+        console.log(error.toJSON());
+      });
+    return data;
+})
+
+export const fetchDevelopersRecomendation = createAsyncThunk("task/fetchDevelopersRecomendation", async(id) =>{
+    const {data} = await axios.get("taskdevrecomendation/"+id).catch(function (error) {
+        console.log(error.toJSON());
+      });
+    return data;
+})
+
+
 
 const initialState = {
+    recomendations: null,
     currentCategory: null,
     currentSkills: null,
     currentState: "create",
@@ -178,7 +194,6 @@ export const taskSlice = createSlice({
             state.loading = true;
         });
         builder.addCase(applyTask.fulfilled, (state, action) => {
-            state.currentForm = action.payload;
             state.loading = false;
         });
         builder.addCase(applyTask.rejected, (state, action) => {
@@ -194,6 +209,30 @@ export const taskSlice = createSlice({
             state.loading = false;
         });
         builder.addCase(assignTask.rejected, (state, action) => {
+            state.error = action.payload;
+            state.loading = false;
+        });
+        builder.addCase(estimateTask.pending, (state) => {
+            state.error = null;
+            state.loading = true;
+        });
+        builder.addCase(estimateTask.fulfilled, (state, action) => {
+            state.currentForm = action.payload;
+            state.loading = false;
+        });
+        builder.addCase(estimateTask.rejected, (state, action) => {
+            state.error = action.payload;
+            state.loading = false;
+        });
+        builder.addCase(fetchDevelopersRecomendation.pending, (state) => {
+            state.error = null;
+            state.loading = true;
+        });
+        builder.addCase(fetchDevelopersRecomendation.fulfilled, (state, action) => {
+            state.recomendations = action.payload;
+            state.loading = false;
+        });
+        builder.addCase(fetchDevelopersRecomendation.rejected, (state, action) => {
             state.error = action.payload;
             state.loading = false;
         });
